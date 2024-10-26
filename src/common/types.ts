@@ -1,3 +1,4 @@
+import { z } from 'zod';
 
 export enum EmploymentStatus{
     Employed = 'Employed',
@@ -6,29 +7,38 @@ export enum EmploymentStatus{
 }
 
 export enum LoanPurpose{
-    Vehicle,
-    HomeImprovement,
-    Other
+    Vehicle = "Vehicle",
+    HomeImprovement = "Home Improvement",
+    Other = "Other"
 }
 
-export interface PersonalDetails{
-    firstName: string,
-    lastName:string,
-    dob: Date,
-    email: string,
-    mobile: string,
-    address: string,
-    empStatus: EmploymentStatus,
-    employerName?: string,
-    income: number
-}
+export const PersonalDetailsFormSchema = z.object({
+    firstName: z.string().trim().min(1, 'First name is required'),
+    lastName: z.string().trim().min(1, 'Last name is required'),
+    dob: z.string().date('Date of birth is not valid'),
+    email: z.string().trim().min(1, 'Email is required').email('Email is not valid'),
+    mobile: z.string().trim().min(1, 'Mobile is required').regex(/^\d{10}$/, 'Mobile is not valid'),
+    address: z.string().trim().min(1, 'Address is required'),
+    empStatus: z.nativeEnum(EmploymentStatus),
+    empName: z.string().optional(),
+    income: z.number().positive('Income is required') 
+  }).refine(data => data.empStatus === EmploymentStatus.Employed ? !!data.empName : true, 
+    { message: 'Employer name is required', path: ['empName']});
 
-export interface LoanDetails {
-    price: number,
-    depositAmount: number,
-    loanPurpose: LoanPurpose,
-    loanTerm: number
-}
+export type PersonalDetails = z.infer<typeof PersonalDetailsFormSchema>;
+
+export const LoanDetailsFormSchema = z.object({
+    price: z.number().gte(2000, 'Price is required to be minimum 2000'),
+    depositAmount: z.number().gte(0, 'Deposit amount is required'),
+    loanPurpose: z.nativeEnum(LoanPurpose),
+    loanTerm: z.number().int().positive('Loan term is required').lte(7, 'Maximum 7 years')
+  })
+  .refine(data => data.depositAmount < data.price, { message: 'Deposit should be should not exceed price', path: ["depositAmount"] })
+  .refine( data => data.price - data.depositAmount > 2000, { message: 'Deposit amount should be at least 2000$ less than price', path: ["depositAmount"] });
+  
+
+export type LoanDetails = z.infer<typeof LoanDetailsFormSchema>;
+
 
 export type LoanEnquiry = PersonalDetails & LoanDetails;
 

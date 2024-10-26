@@ -1,37 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormData } from './loan-form';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { LoanEnquiry } from '../common/types';
+import { EmploymentStatus, PersonalDetails, PersonalDetailsFormSchema } from '../common/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 
-type MyData = {
-  firstName: string;
-  email: string;
-  collection: string;
-}
+import FormInput from '../components/form-input';
+import FormSelect from '../components/form-select';
 
-const schema = z.object({
-  firstName: z.string().min(1, 'Name is required'),
-  email: z.string().min(1, 'Email is required').email('Email is not valid')
-});
-//, { required: true, pattern: /^\S+@\S+$/i }
 
 const PersonalDetailsPage: React.FC = () => {
-  const { register, trigger, formState: { errors } } = useForm<MyData>({
-    resolver: zodResolver(schema),
+  const { register, trigger, formState: { errors } } = useForm<PersonalDetails>({
+    resolver: zodResolver(PersonalDetailsFormSchema),
   });
-  const { formData, setFormData } = useFormData();
+  const { handleChange, formData } = useFormData();
   const navigate = useNavigate();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, name: e.target.value });
-  };
 
   const handleNext = async () => {
     const result = await trigger();
-    console.log('trigger ', result);
     if(result)
       navigate('/step2');
   };
@@ -39,18 +25,97 @@ const PersonalDetailsPage: React.FC = () => {
   return (
     <div>
       <h2>Step 1: Personal details</h2>
-      <input type="text" value={formData.name} onChange={handleChange} placeholder="Enter your name" />
-      <div>
-        <label>Name:</label>
-        <input {...register('firstName')} />
-        {errors.firstName && <span>{errors.firstName.message}</span>}
-      </div>
+      <FormInput
+            type="text"
+            label="First name"
+            name="firstName"
+            placeholder='Enter your First name'
+            value={formData.firstName}
+            onChange={handleChange} 
+            register={register}
+            error={errors.firstName}
+          />
+      <FormInput
+            type="text"
+            label="Last name"
+            name="lastName"
+            placeholder='Enter your Family Name'
+            value={formData.lastName}
+            onChange={handleChange} 
+            register={register}
+            error={errors.lastName}
+          />
+          <FormInput
+            type="date"
+            label="Date of Birth"
+            placeholder='Enter your DOB'
+            name="dob"
+            value={formData.dob}
+            onChange={handleChange} 
+            register={register}
+            error={errors.dob}
+          />
+          <FormInput
+            type="email"
+            label="Email"
+            name="email"
+            placeholder='Enter your email'
+            value={formData.email}
+            onChange={handleChange} 
+            register={register}
+            error={errors.email}
+          />
+          <FormInput
+            type="text"
+            label="Mobile"
+            name="mobile"
+            placeholder='Enter your phone number'
+            value={formData.mobile}
+            onChange={handleChange} 
+            register={register}
+            error={errors.mobile}
+          />
+          <FormInput
+            type="text"
+            label="Address"
+            name="address"
+            placeholder='Enter your address'
+            value={formData.address}
+            onChange={handleChange} 
+            register={register}
+            error={errors.address}
+          />
+          <FormSelect
+            label="Employment Status"
+            name="empStatus"
+            options={EmploymentStatus}
+            value={formData.empStatus}
+            onChange={handleChange} 
+            register={register}
+            error={errors.empStatus}
+          />
+        { formData.empStatus === EmploymentStatus.Employed && <FormInput
+            type="text"
+            label="Employer Name"
+            name="empName"
+            placeholder='Enter employer name'
+            value={formData.empName}
+            onChange={handleChange} 
+            register={register}
+            error={errors.empName}
+          />}
+          <FormInput
+            type="number"
+            label="Annual Income"
+            name="income"
+            placeholder= 'Enter anual income'
+            value={formData.income}
+            onChange={handleChange} 
+            register={register}
+            error={errors.income}
+            valueAsNumber = {true}
+          />
 
-      <div>
-        <label>Email:</label>
-        <input {...register('email')} /> 
-        {errors.email && <span>{errors.email.message}</span>}
-      </div>
       <button onClick={handleNext}>Next</button>
     </div>
   );

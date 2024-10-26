@@ -5,16 +5,24 @@ export type FormFieldProps = {
     label: string;
     placeholder?: string;
     name: string;
+    onChange: any;
     register: any;
     error: FieldError | undefined;
     valueAsNumber?: boolean;
+    value?: string | number | undefined;
   };
 
 export interface SelectFieldProps{
     label: string;
     name: string;
     options: object;
-    selectedValue: string;
+    value?: string | null | undefined;
+    onChange: any;
     register: any;
     error: FieldError | undefined;
+}
+
+export interface SummaryFieldProps {
+  label: string;
+  value: string;
 }
