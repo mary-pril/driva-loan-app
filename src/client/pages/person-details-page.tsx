@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormData } from './loan-form';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { EmploymentStatus, PersonDetails, PersonDetailsFormSchema } from '../common/types';
+import { EmploymentStatus, PersonDetails, PersonDetailsFormSchema } from '../../common/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import FormInput from '../components/form-input';

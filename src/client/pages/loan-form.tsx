@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
-import { LoanEnquiry} from '../common/types';
+import { LoanEnquiry} from '../../common/types';
 import "./../components/input.scss";
-import { InitLoanEnquiryData } from '../common/init-data';
+import { InitLoanEnquiryData } from '../../common/init-data';
 
 const FormContext = createContext<any>(null);
 

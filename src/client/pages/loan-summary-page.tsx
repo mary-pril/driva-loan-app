@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormData } from './loan-form';
 import SummaryItem from '../components/summary-item';
-import { LendFeeType,  LoanEnquiryResultItem } from '../common/types';
+import { LendFeeType,  LoanEnquiryResultItem } from '../../common/types';
 
 const LoanSummaryPage: React.FC = () => {
   const { formData } = useFormData();

@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 import path from 'path';
-import * as loanService from './server/services/loanService';
-import validateLoanEnquiryRequest from './server/core/dataValidation';
-import catchAsyncErrors from './server/core/catch-async-errors';
+import * as loanService from './services/loanService';
+import validateLoanEnquiryRequest from './core/dataValidation';
+import catchAsyncErrors from './core/catch-async-errors';
 
 const clientPath = path.join(__dirname, '..', 'build');
 

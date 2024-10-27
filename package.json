@@ -5,13 +5,14 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "npm run server:build && npm run client:build",
+    "test": "jest",
     "dev": "ts-node src/server.ts",
     "start:dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon src/server.ts",
     "server:build": "tsc",
     "client": "react-scripts start",
     "client:build": "react-scripts build",
-    "test": "jest"
+    "test:ui": "react-scripts test"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useFormData } from './loan-form';
 import FormInput from '../components/form-input';
-import { LoanDetails, LoanDetailsFormSchema, LoanPurpose } from '../common/types';
+import { LoanDetails, LoanDetailsFormSchema, LoanPurpose } from '../../common/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormSelect from '../components/form-select';
-import { submitLoanEnquiry } from '../clients/loanService';
+import { submitLoanEnquiry } from '../api/loanService';
 import { useNavigate } from 'react-router-dom';
 
 

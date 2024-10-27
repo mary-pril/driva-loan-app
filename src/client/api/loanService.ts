@@ -1,4 +1,4 @@
-import { LoanEnquiry, LoanEnquiryResult } from '../common/types';
+import { LoanEnquiry, LoanEnquiryResult } from '../../common/types';
 
 const sendRequest = async (url: string, method: string, data?: any) => {
   const response = await fetch(url, {

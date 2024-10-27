@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
-import routes from './server-routes';
+import routes from './server/routes';
 
 const server = express();
 const PORT = process.env.PORT || 3000;
