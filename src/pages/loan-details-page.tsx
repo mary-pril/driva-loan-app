@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormData } from './loan-form';
 import FormInput from '../components/form-input';
-import { LoanDetails, LoanDetailsFormSchema, LoanEnquiryResultItem, LoanPurpose } from '../common/types';
+import { LoanDetails, LoanDetailsFormSchema, LoanPurpose } from '../common/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormSelect from '../components/form-select';
@@ -23,8 +23,12 @@ const LoanDetailsPage: React.FC = () => {
     if(result)
     {
       const resData  = await submitLoanEnquiry(formData);
-      setFormData({ ...formData,  results: resData.results });
-      navigate('/summary');
+      if(resData !== null){
+        setFormData({ ...formData,  results: resData.results });
+        navigate('/summary');
+      }else{
+        navigate('/error');
+      }
     }
   };
 

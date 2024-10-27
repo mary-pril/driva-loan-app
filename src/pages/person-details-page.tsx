@@ -13,7 +13,7 @@ const PersonalDetailsPage: React.FC = () => {
   const { register, trigger, formState: { errors } } = useForm<PersonDetails>({
     resolver: zodResolver(PersonDetailsFormSchema),
   });
-  const { handleChange, formData } = useFormData();
+  const { handleChange, handleChangeNumber, formData } = useFormData();
   const navigate = useNavigate();
 
   const handleNext = async () => {

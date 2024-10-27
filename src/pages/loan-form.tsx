@@ -7,8 +7,8 @@ const FormContext = createContext<any>(null);
 
 export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [formData, setFormData] = useState<LoanEnquiry>(InitLoanEnquiryData);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('saving ...');
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
