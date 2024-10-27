@@ -1,34 +1,31 @@
 import React from 'react';
 import { useFormData } from './loan-form';
 import FormInput from '../components/form-input';
-import { LoanDetails, LoanDetailsFormSchema, LoanPurpose } from '../common/types';
+import { LoanDetails, LoanDetailsFormSchema, LoanEnquiryResultItem, LoanPurpose } from '../common/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormSelect from '../components/form-select';
+import { submitLoanEnquiry } from '../clients/loanService';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoanDetailsPage: React.FC = () => {
-  const { formData, setFormData, handleChange, handleSubmit } = useFormData();
+  const { formData, handleChange, setFormData } = useFormData();
   const { register, trigger, formState: { errors } } = useForm<LoanDetails>({
     resolver: zodResolver(LoanDetailsFormSchema),
   });
 
-  // const onTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const newValue = Number(e.target.value);
-
-  //   if (newValue > 0 && newValue <= 7) {
-  //     setFormData({ ...formData, loanTerm: newValue });
-  //   }else{
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //   }
-  // };
-
-  const handleNext = async () => {
+  const navigate = useNavigate();
+  
+  const handleSubmit = async () => {
     const result = await trigger();
 
     if(result)
-      handleSubmit();
+    {
+      const resData  = await submitLoanEnquiry(formData);
+      setFormData({ ...formData,  results: resData.results });
+      navigate('/summary');
+    }
   };
 
   return (
@@ -76,7 +73,7 @@ const LoanDetailsPage: React.FC = () => {
           />
 
 
-      <button onClick={handleNext}>Next</button>
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 };

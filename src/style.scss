@@ -1,3 +1,6 @@
+$lr-padding: 10px;
+$tb-padding: 5px;
+$none: 0px;
 
 body {
     margin: 20px;
@@ -10,4 +13,9 @@ body {
 
 h1 {
     font-weight: bold;
+  }
+
+  table, th, td {
+    border: 1px solid;
+    padding: $lr-padding $tb-padding;
   }

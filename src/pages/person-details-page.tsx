@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormData } from './loan-form';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { EmploymentStatus, PersonalDetails, PersonalDetailsFormSchema } from '../common/types';
+import { EmploymentStatus, PersonDetails, PersonDetailsFormSchema } from '../common/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import FormInput from '../components/form-input';
@@ -10,8 +10,8 @@ import FormSelect from '../components/form-select';
 
 
 const PersonalDetailsPage: React.FC = () => {
-  const { register, trigger, formState: { errors } } = useForm<PersonalDetails>({
-    resolver: zodResolver(PersonalDetailsFormSchema),
+  const { register, trigger, formState: { errors } } = useForm<PersonDetails>({
+    resolver: zodResolver(PersonDetailsFormSchema),
   });
   const { handleChange, formData } = useFormData();
   const navigate = useNavigate();

@@ -1,6 +1,7 @@
+import { results } from '../services/data/result';
 import { EmploymentStatus, LoanPurpose } from './types';
 
-export const InitLoanForm = {
+export const InitLoanEnquiryData = {
     firstName: '', 
     lastName: '', 
     dob: '', 
@@ -14,5 +15,6 @@ export const InitLoanForm = {
     loanPurpose: 
     LoanPurpose.Vehicle, 
     loanTerm: 0, 
+    results: [] as any
 };
   

@@ -12,7 +12,7 @@ export enum LoanPurpose{
     Other = "Other"
 }
 
-export const PersonalDetailsFormSchema = z.object({
+export const PersonDetailsFormSchema = z.object({
     firstName: z.string().trim().min(1, 'First name is required'),
     lastName: z.string().trim().min(1, 'Last name is required'),
     dob: z.string().date('Date of birth is not valid'),
@@ -25,7 +25,7 @@ export const PersonalDetailsFormSchema = z.object({
   }).refine(data => data.empStatus === EmploymentStatus.Employed ? !!data.empName : true, 
     { message: 'Employer name is required', path: ['empName']});
 
-export type PersonalDetails = z.infer<typeof PersonalDetailsFormSchema>;
+export type PersonDetails = z.infer<typeof PersonDetailsFormSchema>;
 
 export const LoanDetailsFormSchema = z.object({
     price: z.number().gte(2000, 'Price is required to be minimum 2000'),
@@ -40,22 +40,23 @@ export const LoanDetailsFormSchema = z.object({
 export type LoanDetails = z.infer<typeof LoanDetailsFormSchema>;
 
 
-export type LoanEnquiry = PersonalDetails & LoanDetails;
-
-
 export enum LendFeeType{
     processing,
     application,
     none
 }
 
-export interface LoanEnqueryResultItem{
-    monthRepay: number,
+export interface LoanEnquiryResultItem{
+    id: number,
+    lenderName: string,
+    monthlyRepayment: number,
     interestRate: number,
-    feesAmount: number,
-    feeType: LendFeeType
+    fees: number,
+    feeType: string
 }
 
-export interface LoanEnqueryResult {
-    results: LoanEnqueryResultItem[];
+export interface LoanEnquiryResult {
+    results: LoanEnquiryResultItem[];
 }
+
+export type LoanEnquiry = PersonDetails & LoanDetails & LoanEnquiryResult;

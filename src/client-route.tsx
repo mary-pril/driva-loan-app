@@ -2,7 +2,6 @@ import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
 import LoadDetails from "./pages/loan-details-page";
 import LoanSummaryPage from "./pages/loan-summary-page";
-import ResultPage from "./pages/loan-results-page";
 import PersonalDetailsPage from './pages/person-details-page';
 
 export const router = createBrowserRouter([
@@ -21,10 +20,6 @@ export const router = createBrowserRouter([
     {
         path: "/summary",
         element: <LoanSummaryPage />,
-    },
-    {
-        path: "/result",
-        element: <ResultPage />,
-    },
+    }
 
 ]);

@@ -1,17 +1,20 @@
 
+$field-padding: 0px 5px;
+$w20: 20%;
 
+  
   .form-field {
     display: flex;
     margin: 10px;
 
     label {
-      width: 20%;
-      padding: 0px 5px;
+      width: $w20;
+      padding: $field-padding;
     }
 
     input, select {
-      padding: 0px 5px;
-      width: 20%;
+      padding: $field-padding;
+      width: $w20;
       min-width: 200px;
     }
 
