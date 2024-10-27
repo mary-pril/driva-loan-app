@@ -33,7 +33,6 @@ describe('Express Server', () => {
         });
     
         const response = await request(server).post('/api/loan').send(loanData);
-        console.log(response);
         expect(response.status).toBe(200);
         expect(response.body).toEqual({ results: [] });
     });
