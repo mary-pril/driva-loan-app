@@ -29,9 +29,9 @@ export type PersonDetails = z.infer<typeof PersonDetailsFormSchema>;
 
 export const LoanDetailsFormSchema = z.object({
     price: z.number().gte(2000, 'Price is required to be minimum 2000'),
-    depositAmount: z.number().gte(0, 'Deposit amount is required'),
+    depositAmount: z.number().gte(1, 'Deposit amount is required'),
     loanPurpose: z.nativeEnum(LoanPurpose),
-    loanTerm: z.number().int().positive('Loan term is required').lte(7, 'Maximum 7 years')
+    loanTerm: z.number().int().gte(1, 'Loan term is required').lte(7, 'Maximum 7 years')
   })
   .refine(data => data.depositAmount < data.price, { message: 'Deposit should be should not exceed price', path: ["depositAmount"] })
   .refine( data => data.price - data.depositAmount > 2000, { message: 'Deposit amount should be at least 2000$ less than price', path: ["depositAmount"] });
