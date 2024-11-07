@@ -1,25 +1,26 @@
-import { FieldError } from 'react-hook-form';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FieldError, UseFormRegister } from 'react-hook-form';
 
-export type FormFieldProps = {
-    type: string;
-    label: string;
-    placeholder?: string;
-    name: string;
-    onChange: any;
-    register: any;
-    error: FieldError | undefined;
-    valueAsNumber?: boolean;
-    value?: string | number | undefined;
-  };
+interface FormFieldProps {
+  label: string;
+  placeholder?: string;
+  name: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void | undefined;
+  register: UseFormRegister<any>;
+  error: FieldError | undefined;
+  value?: string | number | undefined;
+}
 
-export interface SelectFieldProps{
-    label: string;
-    name: string;
-    options: object;
-    value?: string | null | undefined;
-    onChange: any;
-    register: any;
-    error: FieldError | undefined;
+export interface InputFieldProps extends FormFieldProps {
+  type: string;
+  placeholder?: string;
+  valueAsNumber?: boolean;
+  valueAsDate?: boolean;
+}
+
+export interface SelectFieldProps extends FormFieldProps {
+  options: object;
+  valueAsNumber?: boolean;
 }
 
 export interface SummaryFieldProps {

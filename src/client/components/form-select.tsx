@@ -1,5 +1,4 @@
-import { SelectFieldProps } from "./form-field-props";
-
+import { SelectFieldProps } from './form-field-props';
 
 const FormSelect: React.FC<SelectFieldProps> = ({
   label,
@@ -9,20 +8,20 @@ const FormSelect: React.FC<SelectFieldProps> = ({
   onChange,
   register,
   error,
+  valueAsNumber,
 }) => (
-
-  <div className="form-field">
+  <div className="form-field" data-name={name}>
     <label>{label}</label>
-    <select value={value} 
-        {...register(name)}
-        onChange= {onChange}>
-        {Object.values(options).map((item, i) => (
+    <div>
+      <select {...register(name, { onChange, value, valueAsNumber })}>
+        {Object.values(options).map((item) => (
           <option key={item} value={item}>
             {item}
           </option>
         ))}
       </select>
-    {error && <span className="error-message">{error.message}</span>}
+    </div>
+    <div>{error && <span className="error-message">{error.message}</span>}</div>
   </div>
 );
 export default FormSelect;

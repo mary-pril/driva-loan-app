@@ -47,6 +47,9 @@ Local server address:  http://localhost:3000/
 * server:build: Compile the TypeScript server code.
 * client: Start the React development server.
 * client:build: Build the React frontend for production.
+* lint: run static code analysis
+* format: starts formating code according to pritier configuration
+* format:check : check formatting in code
 
 ## API Endpoints
 POST /api/loan  - Submits a loan enquiry.

@@ -1,0 +1,38 @@
+.summary-desc {
+  padding: 1rem 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #f0f0f0;
+}
+
+th,
+td {
+  padding: 1rem;
+}
+
+th {
+  text-align: left;
+  background-color: rgb(95, 158, 160);
+}
+
+tr:nth-of-type(2n) {
+  background-color: #cdd8d9;
+}
+
+@media screen and (max-width: 768px) {
+  th {
+    display: none;
+  }
+  td {
+    display: block;
+    padding: 0.5rem 1rem;
+  }
+
+  td::before {
+    content: attr(data-cell) ': ';
+    font-weight: bold;
+  }
+}

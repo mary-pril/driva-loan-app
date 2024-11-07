@@ -44,10 +44,8 @@ describe('Express Server', () => {
 
         const response = await request(server).post('/api/loan' ).send(loanData);
         expect(response.status).toBe(500);
-        expect(response.text).toBe('{\"message\":\"Internal Server Error\"}');
+        expect(response.text).toBe('{"message":"Internal Server Error"}');
 
         jest.restoreAllMocks();
     });
-
-  // Add more tests as needed
 });

@@ -9,7 +9,7 @@ const ErrorPage: React.FC = () => {
   };
 
   return (
-    <div >
+    <div>
       <h1>Oops, something goes wrong</h1>
 
       <button onClick={handleGoBack}>Go Back</button>

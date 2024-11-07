@@ -1,16 +1,15 @@
 import React from 'react';
 import { useFormData } from './loan-form';
 import SummaryItem from '../components/summary-item';
-import { LendFeeType,  LoanEnquiryResultItem } from '../../common/types';
+import { LendFeeType, LoanEnquiryResultItem } from '../../common/types';
 
 const LoanSummaryPage: React.FC = () => {
   const { formData } = useFormData();
 
   const getFeeText = (item: LoanEnquiryResultItem) => {
-
     const feeType = LendFeeType[item.feeType as keyof typeof LendFeeType];
 
-    switch(feeType){
+    switch (feeType) {
       case LendFeeType.application:
         return `$${item.fees} application fee`;
       case LendFeeType.processing:
@@ -20,15 +19,19 @@ const LoanSummaryPage: React.FC = () => {
       default:
         return `$${item.fees} other fee`;
     }
-  }
+  };
 
   return (
-    
     <div>
       <h2>Step 3: Summary of loan details </h2>
-      <SummaryItem label = 'Loan amount (vehicle price - deposit)'  value = { `$${formData.price - formData.depositAmount}` } />
-      <SummaryItem label = 'Loan purpose'  value = {formData.loanPurpose} />
-      <SummaryItem label = 'Loan term'  value = { `${formData.loanTerm} years`} />
+      <div className="summary-desc">
+        <SummaryItem
+          label="Loan amount (vehicle price - deposit)"
+          value={`$${formData.price - formData.depositAmount}`}
+        />
+        <SummaryItem label="Loan purpose" value={formData.loanPurpose} />
+        <SummaryItem label="Loan term" value={`${formData.loanTerm} years`} />
+      </div>
 
       <table>
         <thead>
@@ -40,16 +43,18 @@ const LoanSummaryPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-        { formData.results.map((item: LoanEnquiryResultItem, index: number) => (
-            <tr key={index}>
-              <td>{item.lenderName}</td>
-              <td>{item.interestRate}</td>
-              <td>{item.monthlyRepayment} % APR</td>
-              <td>{ getFeeText(item) }</td>
-          </tr>
-          ))}
+          {formData.results.map(
+            (item: LoanEnquiryResultItem, index: number) => (
+              <tr key={index}>
+                <td data-cell="name">{item.lenderName}</td>
+                <td data-cell="rate">{item.interestRate}</td>
+                <td data-cell="repay">{item.monthlyRepayment} % APR</td>
+                <td data-cell="fee">{getFeeText(item)}</td>
+              </tr>
+            )
+          )}
         </tbody>
-        </table>
+      </table>
     </div>
   );
 };

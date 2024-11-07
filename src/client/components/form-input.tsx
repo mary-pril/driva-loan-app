@@ -1,7 +1,6 @@
-import { FormFieldProps } from "./form-field-props";
+import { InputFieldProps } from './form-field-props';
 
-
-const FormInput: React.FC<FormFieldProps> = ({
+const FormInput: React.FC<InputFieldProps> = ({
   type,
   label,
   placeholder,
@@ -9,19 +8,20 @@ const FormInput: React.FC<FormFieldProps> = ({
   onChange,
   register,
   error,
+  value,
   valueAsNumber,
-  value
 }) => (
-  <div className="form-field">
+  <div className="form-field" data-name={name}>
     <label htmlFor={name}>{label}</label>
-    <input
-      type={type}
-      placeholder={placeholder}
-      {...register(name, { valueAsNumber })}
-      onChange= {onChange}
-      value = {value}
-    />
-    {error && <span className="error-message">{error.message}</span>}
+    <div>
+      <input
+        type={type}
+        placeholder={placeholder}
+        {...register(name, { valueAsNumber, onChange })}
+        defaultValue={value == 0 ? undefined : value}
+      />
+    </div>
+    <div>{error && <span className="error-message">{error.message}</span>}</div>
   </div>
 );
 export default FormInput;
