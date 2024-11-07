@@ -21,7 +21,7 @@ describe('Form Navigation', () => {
       cy.url().should('include', '/step2');
       cy.get('input[name="price"]').type('25000');
       cy.get('input[name="depositAmount"]').type('5000');
-      cy.get('input[name="loanTerm"]').type('1');
+      cy.get('select[name="loanTerm"]').select('2');
       cy.get('button').contains('Submit').click();
   
       // Step 3: Loan summary
@@ -50,7 +50,7 @@ describe('Form Navigation', () => {
       cy.url().should('include', '/step2');
       cy.get('input[name="price"]').type('25000');
       cy.get('input[name="depositAmount"]').type('5000');
-      cy.get('input[name="loanTerm"]').type('1');
+      cy.get('select[name="loanTerm"]').select('3');
       cy.get('button').contains('Submit').click();
 
       //Error

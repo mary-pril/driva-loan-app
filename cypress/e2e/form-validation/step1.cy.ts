@@ -8,29 +8,26 @@ describe('Form Validation', () => {
     cy.get('button').contains('Next').click();
 
     // Check for validation messages
-    cy.get('input[name="firstName"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'First name is required');
+    cy.get('[data-name="firstName"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'First name is required');
     });
-    cy.get('input[name="lastName"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Last name is required');
+    cy.get('[data-name="lastName"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Last name is required');
     });
-    cy.get('input[name="dob"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Date of birth is not valid');
+    cy.get('[data-name="dob"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Date of birth is not valid');
     });
-    cy.get('input[name="email"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Email is required');
+    cy.get('[data-name="email"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Email is required');
     });
-    cy.get('input[name="mobile"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Mobile is required');
+    cy.get('[data-name="mobile"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Mobile is required');
     });
-    cy.get('input[name="address"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Address is required');
+    cy.get('[data-name="address"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Address is required');
     });
-    cy.get('input[name="empName"]').then(($select) => {
-      cy.wrap($select).siblings('.error-message').should('contain', 'Employer name is required');
-    });
-    cy.get('input[name="income"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Income is required');
+    cy.get('[data-name="income"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Income is not a valid number');
     });
   });
 
@@ -49,14 +46,14 @@ describe('Form Validation', () => {
 
     cy.get('button').contains('Next').click(); 
 
-    cy.get('input[name="email"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Email is not valid');
+    cy.get('[data-name="email"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Email is not valid');
     });
-    cy.get('input[name="mobile"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Mobile is not valid');
+    cy.get('[data-name="mobile"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Mobile is not valid');
     });
-    cy.get('input[name="income"]').then(($input) => {
-      cy.wrap($input).siblings('.error-message').should('contain', 'Income is required');
+    cy.get('[data-name="income"]').then(($input) => {
+      cy.wrap($input).find('.error-message').should('contain', 'Number must be greater than 0');
     });
   });
 

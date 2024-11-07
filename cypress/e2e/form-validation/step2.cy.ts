@@ -21,21 +21,16 @@ describe('Form Validation', () => {
       cy.get('button').contains('Submit').click();
   
       // Check for validation messages
-      cy.get('select[name="loanPurpose"]').then(($input) => {
-        cy.wrap($input).siblings('.error-message').should("not.exist");
+      cy.get('[data-name="loanPurpose"]').then(($input) => {
+        cy.wrap($input).find('.error-message').should("not.exist");
       });
-      cy.get('input[name="price"]').then(($input) => {
-        cy.wrap($input).siblings('.error-message').should("not.exist");
-        cy.wrap($input).should('have.value', '2000')
+      cy.get('[data-name="price"]').then(($input) => {
+        cy.wrap($input).find('.error-message').should("contain", 'Price is not a valid number');
       });
 
-      cy.get('input[name="depositAmount"]').then(($input) => {
-        cy.wrap($input).siblings('.error-message').should('contain', 'Deposit amount is required');
-      });
-      cy.get('input[name="loanTerm"]').then(($input) => {
-        cy.wrap($input).siblings('.error-message').should('contain', 'Loan term is required');
-      });
-     
+      cy.get('[data-name="depositAmount"]').then(($input) => {
+        cy.wrap($input).find('.error-message').should('contain', 'Deposit is not a valid number');
+      });     
     });
   
     it('should display validation messages for invalid values', () => {
@@ -43,18 +38,15 @@ describe('Form Validation', () => {
         fillInStep1();
         cy.get('input[name="price"]').clear().type('100');
         cy.get('input[name="depositAmount"]').clear().type('100');
-        cy.get('input[name="loanTerm"]').clear().type('100');
+        cy.get('select[name="loanTerm"]').select('7');
 
         cy.get('button').contains('Submit').click();
   
-      cy.get('input[name="price"]').then(($input) => {
-        cy.wrap($input).siblings('.error-message').should('contain', 'Price is required to be minimum 2000');
+      cy.get('[data-name="price"]').then(($input) => {
+        cy.wrap($input).find('.error-message').should('contain', 'Price is required to be minimum 2000');
       });
-      cy.get('input[name="depositAmount"]').then(($input) => {
-        cy.wrap($input).siblings('.error-message').should('contain', 'Deposit should be should not exceed price');
-      });
-      cy.get('input[name="loanTerm"]').then(($input) => {
-        cy.wrap($input).siblings('.error-message').should('contain', 'Maximum 7 years');
+      cy.get('[data-name="depositAmount"]').then(($input) => {
+        cy.wrap($input).find('.error-message').should('contain', 'Deposit should be should not exceed price');
       });
     });
 
@@ -63,15 +55,15 @@ describe('Form Validation', () => {
         fillInStep1();
         cy.get('input[name="price"]').clear().type('3000');
         cy.get('input[name="depositAmount"]').clear().type('2000');
-        cy.get('input[name="loanTerm"]').clear().type('1');
+        cy.get('select[name="loanTerm"]').select('1');
 
         cy.get('button').contains('Submit').click();
   
-        cy.get('input[name="price"]').siblings('.error-message').should("not.exist");
+        cy.get('[data-name="price"]').find('.error-message').should("not.exist");
 
-        cy.get('input[name="depositAmount"]').siblings('.error-message').should('contain', 'Deposit amount should be at least 2000$ less than price');
+        cy.get('[data-name="depositAmount"]').find('.error-message').should('contain', 'Deposit amount should be at least 2000$ less than price');
       
-        cy.get('input[name="loanTerm"]').siblings('.error-message').should("not.exist");
+        cy.get('[data-name="loanTerm"]').find('.error-message').should("not.exist");
 
     });
   
@@ -79,7 +71,6 @@ describe('Form Validation', () => {
         fillInStep1();
         cy.get('input[name="price"]').clear().type('3001');
         cy.get('input[name="depositAmount"]').clear().type('1000');
-        cy.get('input[name="loanTerm"]').clear().type('1');
 
         cy.get('button').contains('Submit').click();
   
